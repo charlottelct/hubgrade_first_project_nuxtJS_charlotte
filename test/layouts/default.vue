@@ -1,35 +1,19 @@
 <template>
   <v-app light>
-    <v-navigation-drawer
-      :mini-variant.sync="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-tile
-          router
-          :to="item.to"
-          :key="i"
-          v-for="(item, i) in items"
-          exact
-        >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
     <v-content>
-      <v-container>
-        <nuxt />
+      <v-container grid-list-md text-xs-center>
+          <v-layout row wrap>
+          <v-flex xs12>
+          <v-card dark color="primary">
+          <v-card-text class="px-0">Bienvenue beauté des îles</v-card-text>
+          </v-card>
+          </v-flex>
+          </v-layout>
+        <nuxt/>
       </v-container>
     </v-content>
     <v-footer :fixed="fixed" app>
+      <v-btn color="info" home to="/"><v-icon>home</v-icon></v-btn>
       <span>&copy; Coucou Nidrax</span>
     </v-footer>
   </v-app>

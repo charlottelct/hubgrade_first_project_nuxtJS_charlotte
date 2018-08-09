@@ -32,7 +32,7 @@ module.exports = {
         endpoints: {
           login: { url: 'http://localhost:8000/api/login', method: 'post', propertyName: '' },
           logout: false,
-          user: { url: 'http://localhost:8000/api/user', method: 'get', propertyName: 'user' }
+          user: false
         }
       }
     }
