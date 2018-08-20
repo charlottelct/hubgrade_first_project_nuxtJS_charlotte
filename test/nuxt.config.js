@@ -30,12 +30,14 @@ module.exports = {
     strategies: {
       local: {
         endpoints: {
-          login: { url: 'http://localhost:8000/api/login', method: 'post', propertyName: '' },
+          login: { url: 'http://localhost:8000/api/login', method: 'post', propertyName: 'access_token' },
           logout: false,
-          user: false
+          user: { url: 'http://localhost:8000/api/me', method: 'post', propertyName: '' }
         }
       }
-    }
+    },
+    watchLoggedIn: true,
+    resetOnError: true
   },
   /*
   ** Customize the progress bar color

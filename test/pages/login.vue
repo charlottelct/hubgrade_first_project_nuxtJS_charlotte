@@ -1,27 +1,4 @@
 <template>
-<!-- <div>
-    <v-form v-model="valid">
-    <v-text-field
-        v-model="email"
-        :rules="emailRules"
-        label="Email"
-        required
-    ></v-text-field>
-            {{email}}
-    <v-text-field
-        v-model="password"
-        :rules="passwordRules"
-        label="Password"
-        required
-    ></v-text-field>
-      <v-spacer></v-spacer>
-    </v-form>
-    <v-btn
-        @click="submit"
-    >
-        submit
-    </v-btn>
-    </div> -->
     <div id="app">
   <v-app id="inspire">
     <v-content>
@@ -34,26 +11,27 @@
                 <v-spacer></v-spacer>
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form ref="form" v-model="valid" lazy-validation>
                   <v-text-field
                       v-model="email"
                       :rules="emailRules"
                       label="Email"
                       required
                   ></v-text-field>
-                    {{email}}              
                   <v-text-field
                     v-model="password"
                       :rules="passwordRules"
                       label="Password"
+                      type="password"
                       required
                   ></v-text-field>
-                    </v-form>
+                  </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn 
-                  @click="submit" to="/user">submit
+                  :disabled="!valid"
+                  @click="submit">submit
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -66,31 +44,32 @@
 </template>
 
 <script>
-// import axios from 'axios'
 export default {
   auth: false,
   data: () => ({
     valid: false,
     password: '',
     passwordRules: [
-      v => !!v || 'Password is required',
-      v => /.+@.+/.test(v) || 'Password must be valid'
-
+      v => !!v || 'Password is required'
     ],
     email: '',
     emailRules: [
       v => !!v || 'E-mail is required',
       v => /.+@.+/.test(v) || 'E-mail must be valid'
     ]
+
   }),
   methods: {
     submit () {
-      this.$auth.loginWith('local', {
-        data: {
-          email: this.email,
-          password: this.password
-        }
-      })
+      if (this.$refs.form.validate()) {
+        this.$auth.loginWith('local', {
+          data: {
+            email: this.email,
+            password: this.password
+          }
+        })
+          .then(() => this.$router.push('/user'))
+      }
     },
     clear () {
       this.$refs.form.reset()
@@ -98,4 +77,3 @@ export default {
   }
 }
 </script>
-

@@ -1,19 +1,27 @@
 <template>
   <v-app light>
+      <v-toolbar color="primary" dark fixed app>
+        <v-btn color="accent" home to="/"><v-icon>home</v-icon></v-btn>
+        <v-toolbar-title>Welcome,</v-toolbar-title>
+            <v-spacer></v-spacer><v-spacer></v-spacer>
+                  <template v-if="$auth.$state.loggedIn">
+              <v-btn color="accent" @click="logout">Logout</v-btn>
+          </template>
+          <template v-else>
+            <v-btn color="accent" to="/login">Login</v-btn>
+          </template>
+      </v-toolbar>
     <v-content>
       <v-container grid-list-md text-xs-center>
           <v-layout row wrap>
           <v-flex xs12>
-          <v-card dark color="primary">
-          <v-card-text class="px-0">Bienvenue beauté des îles</v-card-text>
-          </v-card>
           </v-flex>
           </v-layout>
         <nuxt/>
       </v-container>
     </v-content>
-    <v-footer :fixed="fixed" app>
-      <v-btn color="info" home to="/"><v-icon>home</v-icon></v-btn>
+      <v-footer color="primary" app inset>
+      <span class="white--text"></span>
       <span>&copy; Coucou Nidrax</span>
     </v-footer>
   </v-app>
@@ -24,17 +32,16 @@
     data () {
       return {
         clipped: false,
-        drawer: false,
         fixed: false,
-        items: [
-          { icon: 'apps', title: 'Welcome', to: '/' },
-          { icon: 'bubble_chart', title: 'Inspire', to: '/inspire' }
-        ],
         miniVariant: false,
         right: true,
-        rightDrawer: false,
         title: 'Vuetify.js'
       }
+    },
+    methods: {
+      logout () {
+        this.$auth.logout()
+      }
     }
-  }
+}
 </script>
